@@ -1,6 +1,6 @@
 {
   "name": "gemini-search-mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Launches the Gemini Search MCP Python server via Node CLI.",
   "main": "bin/gemini-search-mcp.js",
   "bin": {
