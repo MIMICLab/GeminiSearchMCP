@@ -2,6 +2,9 @@
 
 This document describes how to publish `gemini-search-mcp` to PyPI and npm using GitHub Actions.
 
+⚠️ **계정이 필요합니다!** PyPI와 npm에 배포하려면 각 플랫폼의 계정과 인증 정보가 필요합니다.
+상세한 설정 방법은 [SETUP_ACCOUNTS.md](SETUP_ACCOUNTS.md)를 참조하세요.
+
 ## Prerequisites
 
 ### 1. PyPI Setup

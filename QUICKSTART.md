@@ -181,5 +181,5 @@ brew install --cask libreoffice
 
 ## Support
 
-- Issues: [GitHub Issues](https://github.com/YOUR_USERNAME/GeminiSearchMCP/issues)
-- Documentation: [GitHub Repository](https://github.com/YOUR_USERNAME/GeminiSearchMCP)
+- Issues: [GitHub Issues](https://github.com/MIMICLab/GeminiSearchMCP/issues)
+- Documentation: [GitHub Repository](https://github.com/MIMICLab/GeminiSearchMCP)

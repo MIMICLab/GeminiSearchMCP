@@ -18,12 +18,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YOUR_USERNAME/GeminiSearchMCP.git"
+    "url": "git+https://github.com/MIMICLab/GeminiSearchMCP.git"
   },
   "bugs": {
-    "url": "https://github.com/YOUR_USERNAME/GeminiSearchMCP/issues"
+    "url": "https://github.com/MIMICLab/GeminiSearchMCP/issues"
   },
-  "homepage": "https://github.com/YOUR_USERNAME/GeminiSearchMCP#readme",
+  "homepage": "https://github.com/MIMICLab/GeminiSearchMCP#readme",
   "keywords": [
     "mcp",
     "gemini",

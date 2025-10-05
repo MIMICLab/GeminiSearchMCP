@@ -2,13 +2,16 @@
 
 [![PyPI version](https://badge.fury.io/py/gemini-search-mcp.svg)](https://badge.fury.io/py/gemini-search-mcp)
 [![npm version](https://badge.fury.io/js/gemini-search-mcp.svg)](https://badge.fury.io/js/gemini-search-mcp)
-[![CI Tests](https://github.com/YOUR_USERNAME/GeminiSearchMCP/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/GeminiSearchMCP/actions/workflows/ci.yml)
+[![CI Tests](https://github.com/MIMICLab/GeminiSearchMCP/actions/workflows/ci.yml/badge.svg)](https://github.com/MIMICLab/GeminiSearchMCP/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Gemini Search MCP packages a [Model Context Protocol](https://www.modelcontextprotocol.io/) server that exposes two tools:
+Gemini Search MCP packages a [Model Context Protocol](https://www.modelcontextprotocol.io/) server that exposes five tools:
 
 - **web_search** – Uses Gemini with Google Search grounding to answer general questions.
 - **document_question_answering** – Converts local documents to captioned markdown and asks Gemini to answer questions about their contents.
+- **get_document_content** – Converts a document to markdown and returns the full content for reading.
+- **get_document_chunk** – Retrieves specific chunks of large documents for easier processing.
+- **get_next_chunk** – Automatically continues reading from where you left off (stateful).
 
 ## Installation
 

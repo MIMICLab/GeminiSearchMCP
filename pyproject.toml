@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gemini-search-mcp"
-version = "0.1.0"
+version = "0.2.0"
 description = "MCP server that exposes Gemini web search and document question answering tools."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -37,9 +37,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/YOUR_USERNAME/GeminiSearchMCP"
-Repository = "https://github.com/YOUR_USERNAME/GeminiSearchMCP"
-Issues = "https://github.com/YOUR_USERNAME/GeminiSearchMCP/issues"
+Homepage = "https://github.com/MIMICLab/GeminiSearchMCP"
+Repository = "https://github.com/MIMICLab/GeminiSearchMCP"
+Issues = "https://github.com/MIMICLab/GeminiSearchMCP/issues"
 
 [project.scripts]
 gemini-search-mcp = "gemini_search_mcp.cli:main"
