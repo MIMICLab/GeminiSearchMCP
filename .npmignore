@@ -1,0 +1,40 @@
+# Development files
+*.pyc
+__pycache__/
+.pytest_cache/
+.coverage
+.tox/
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# CI/CD
+.github/
+.git/
+
+# Documentation (except README)
+PUBLISHING.md
+COPILOT_SETUP.md
+
+# Build artifacts
+*.egg-info/
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test files
+test_*.py
+test_*.sh
+tests/
+
+# Reference materials
+reference/

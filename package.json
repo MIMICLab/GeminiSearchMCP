@@ -1,0 +1,42 @@
+{
+  "name": "gemini-search-mcp",
+  "version": "0.1.0",
+  "description": "Launches the Gemini Search MCP Python server via Node CLI.",
+  "main": "bin/gemini-search-mcp.js",
+  "bin": {
+    "gemini-search-mcp": "bin/gemini-search-mcp.js"
+  },
+  "files": [
+    "bin",
+    "gemini_search_mcp",
+    "pyproject.toml",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "prepublishOnly": "echo 'Publishing gemini-search-mcp to npm...'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOUR_USERNAME/GeminiSearchMCP.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR_USERNAME/GeminiSearchMCP/issues"
+  },
+  "homepage": "https://github.com/YOUR_USERNAME/GeminiSearchMCP#readme",
+  "keywords": [
+    "mcp",
+    "gemini",
+    "search",
+    "google",
+    "codex",
+    "copilot",
+    "ai",
+    "model-context-protocol"
+  ],
+  "author": "Gemini Search Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}

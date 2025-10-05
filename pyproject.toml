@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gemini-search-mcp"
+version = "0.1.0"
+description = "MCP server that exposes Gemini web search and document question answering tools."
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  { name = "Gemini Search Team" }
+]
+license = { text = "MIT" }
+keywords = ["mcp", "gemini", "search", "google", "ai", "model-context-protocol"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+  "mcp>=0.4.0",
+  "google-genai>=0.3.0",
+  "opendataloader-pdf>=0.5.0",
+  "pydantic>=2.6.0",
+  "markdown>=3.5.0",
+  "pillow>=10.0.0",
+  "tomli>=2.0.1",
+  "tomli-w>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/YOUR_USERNAME/GeminiSearchMCP"
+Repository = "https://github.com/YOUR_USERNAME/GeminiSearchMCP"
+Issues = "https://github.com/YOUR_USERNAME/GeminiSearchMCP/issues"
+
+[project.scripts]
+gemini-search-mcp = "gemini_search_mcp.cli:main"
+
+[tool.setuptools.package-data]
+"gemini_search_mcp" = ["*.md"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["gemini_search_mcp*"]
