@@ -1,7 +1,5 @@
 """Entry point for the Gemini Search MCP server."""
 
-from __future__ import annotations
-
 import asyncio
 from typing import Annotated, Optional
 from pathlib import Path
@@ -37,7 +35,7 @@ _current_chunk_size: int = 10000
 )
 async def tool_web_search(
     query: Annotated[str, Field(description="Search query to send to Gemini web search tool.")],
-    context: Context | None = None,
+    context: Context = None,
 ) -> str:
     if context is not None:
         await context.info(f"Starting web search for query: {query}")
@@ -54,7 +52,7 @@ async def tool_web_search(
 async def tool_document_question_answering(
     document_path: Annotated[str, Field(description="Path to the document to analyze.")],
     question: Annotated[str, Field(description="Question to answer using the document content.")],
-    context: Context | None = None,
+    context: Context = None,
 ) -> str:
     path = document_path
     if context is not None:
@@ -75,7 +73,7 @@ async def tool_document_question_answering(
 async def tool_get_document_content(
     document_path: Annotated[str, Field(description="Path to the document to convert and read.")],
     include_images: Annotated[bool, Field(description="Whether to include image descriptions in the output.")] = True,
-    context: Context | None = None,
+    context: Context = None,
 ) -> str:
     """
     Convert and return the full markdown content of a document.
@@ -130,7 +128,7 @@ async def tool_get_document_chunk(
     document_path: Annotated[str, Field(description="Path to the document to read.")],
     chunk_index: Annotated[int, Field(description="Chunk number to retrieve (0-based index).", ge=0)] = 0,
     chunk_size: Annotated[int, Field(description="Approximate size of each chunk in characters.", ge=1000)] = 10000,
-    context: Context | None = None,
+    context: Context = None,
 ) -> str:
     """
     Get a specific chunk of a document's content.
@@ -190,7 +188,7 @@ async def tool_get_document_chunk(
     description="Get the next chunk of the currently reading document. Continues from where the last chunk left off.",
 )
 async def tool_get_next_chunk(
-    context: Context | None = None,
+    context: Context = None,
 ) -> str:
     """
     Get the next chunk of the document you're currently reading.
