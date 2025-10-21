@@ -8,7 +8,7 @@ import uuid
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Iterable, Callable
 
 import requests
 from google.auth.transport.requests import Request
@@ -187,15 +187,34 @@ def _authorised_session(creds: Credentials) -> requests.Session:
     return session
 
 
+def _read_credentials_payload() -> dict[str, Any]:
+    if not OAUTH_CREDS_PATH.exists():
+        return {}
+    try:
+        return json.loads(OAUTH_CREDS_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+
+
 def _request(
-    session: requests.Session,
+    credentials: Credentials,
     method: str,
     *,
     payload: dict[str, Any] | None = None,
     stream: bool = False,
+    persist_callback: Callable[[Credentials], None] | None = None,
 ) -> requests.Response:
     url = f"{CODE_ASSIST_ENDPOINT}/{CODE_ASSIST_VERSION}:{method}"
+    session = _authorised_session(credentials)
     response = session.post(url, json=payload, stream=stream, timeout=60)
+    if response.status_code == 401 and persist_callback is not None:
+        try:
+            credentials.refresh(Request())
+        except Exception as exc:  # noqa: BLE001
+            raise LoginClientError("Failed to refresh credentials for Gemini Code Assist API.") from exc
+        persist_callback(credentials)
+        session = _authorised_session(credentials)
+        response = session.post(url, json=payload, stream=stream, timeout=60)
     if response.status_code == 401:
         raise LoginClientError("Authentication failed when calling Gemini Code Assist API.")
     if response.status_code >= 400:
@@ -222,7 +241,10 @@ def _load_project_id(session: requests.Session, creds: Credentials) -> str:
             "pluginType": "GEMINI",
         },
     }
-    load_response = _request(session, "loadCodeAssist", payload=payload).json()
+    def _persist(creds: Credentials) -> None:
+        _persist_credentials(creds, _read_credentials_payload())
+
+    load_response = _request(creds, "loadCodeAssist", payload=payload, persist_callback=_persist).json()
     project = load_response.get("cloudaicompanionProject")
     if project:
         PROJECT_CACHE_PATH.write_text(json.dumps({"project": project}), encoding="utf-8")
@@ -251,7 +273,7 @@ def _load_project_id(session: requests.Session, creds: Credentials) -> str:
     }
 
     for _ in range(60):
-        onboard_response = _request(session, "onboardUser", payload=onboard_payload).json()
+        onboard_response = _request(creds, "onboardUser", payload=onboard_payload, persist_callback=_persist).json()
         if onboard_response.get("done"):
             break
         time.sleep(5)
@@ -276,6 +298,10 @@ class _ModelInvoker:
     credential_payload: dict[str, Any]
     location: str = DEFAULT_LOCATION
 
+    def _persist_credentials_callback(self, creds: Credentials) -> None:
+        base_payload = self.credential_payload or _read_credentials_payload()
+        self.credential_payload = _persist_credentials(creds, base_payload)
+
     def generate_content(
         self,
         *,
@@ -288,7 +314,6 @@ class _ModelInvoker:
             self.credentials.refresh(Request())
             self.credential_payload = _persist_credentials(self.credentials, self.credential_payload)
 
-        session = _authorised_session(self.credentials)
         request_payload, generation_payload = _build_generation_payload(config)
         request_payload["contents"] = _normalise_contents(contents)
         if generation_payload:
@@ -302,7 +327,12 @@ class _ModelInvoker:
             "request": request_payload,
         }
 
-        response = _request(session, "generateContent", payload=body)
+        response = _request(
+            self.credentials,
+            "generateContent",
+            payload=body,
+            persist_callback=self._persist_credentials_callback,
+        )
         data = response.json()
         try:
             return genai_types.GenerateContentResponse.model_validate(data["response"])
